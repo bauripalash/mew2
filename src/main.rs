@@ -9,7 +9,7 @@ mod mewmew;
 fn lex(c: &String) {
     let mut m_scanner: Scanner = Scanner::new(c.chars().collect::<Vec<char>>());
     m_scanner.scan_token();
-    //m_scanner.print_tokens();
+    m_scanner.print_tokens();
 }
 
 fn main() {

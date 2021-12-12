@@ -34,6 +34,9 @@ pub enum TokenType {
     SCRATCH,    // #....
     ATLOOP,     // @
     QU,         // ?
+    COMMA,      // ,
+    LBRAC,      // (
+    RBRAC,      // )
 
     OTHER,
 }
@@ -238,6 +241,9 @@ impl Scanner {
             '%' => _type = TokenType::MOD,
             '?' => _type = TokenType::QU,
             '@' => _type = TokenType::ATLOOP,
+            '(' => _type = TokenType::LBRAC,
+            ')' => _type = TokenType::RBRAC,
+            ',' => _type = TokenType::COMMA,
             ':' => {
                 if self.peek() == ':' {
                     if self.peek_at(2) == ':' {
@@ -312,7 +318,7 @@ impl Scanner {
                 }
                 match &_vcur {
                     '+' | '-' | '*' | '~' | '&' | '|' | '%' | '>' | '<' | '!' | ';' | '=' | ':'
-                    | '/' => self.scan_single_char_op(_vcur),
+                    | '/' | '(' | ')' | ',' => self.scan_single_char_op(_vcur),
                     '#' => {
                         self.scan_scratch();
                     }
