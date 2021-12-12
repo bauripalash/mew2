@@ -1,95 +1,35 @@
 #![allow(dead_code)]
+#![allow(unused_imports)]
+use crate::mewmew::scanner::*;
 use std::fs;
+use std::os;
+
+mod mewmew;
+
+#[derive(Debug)]
+enum TokenType {
+    EQUAL,
+    SEMICOLON,
+    MEWNUM,
+    OTHER,
+}
 
 struct Token {
+    t_type: TokenType,
     lexeme: String,
     pos: u32,
     line: u32,
 }
 
-fn new_token(lexeme: String, pos: u32, line: u32) -> Token {
-    let _t: Token = Token { lexeme, pos, line };
+fn new_token(t_type: TokenType, lexeme: String, pos: u32, line: u32) -> Token {
+    let _t: Token = Token {
+        t_type,
+        lexeme,
+        pos,
+        line,
+    };
 
     return _t;
-}
-
-struct Scanner {
-    c_list: Vec<char>,
-    line: u32,
-    current: usize,
-    tok_list: Vec<Token>,
-}
-
-impl Scanner {
-    fn c_advance(mut self) -> char {
-        self.current += 1;
-
-        return self.c_list[self.current - 1];
-    }
-    fn at_eof(&self) -> bool {
-        return self.current >= self.c_list.len();
-    }
-    //TODO : Complete this function
-    //Donot use the print_token
-    fn scan_token(mut self) {
-        while !self.at_eof() {
-            let _vcur = self.c_list[self.current];
-            if !(_vcur == ' ') {
-                if _vcur == '\n' {
-                    self.line += 1;
-                    self.current += 1;
-                    continue;
-                }
-
-                let _token: Token = Token {
-                    lexeme: String::from(_vcur),
-                    pos: self.current as u32,
-                    line: self.line,
-                };
-                self.tok_list.push(_token);
-            }
-            self.current += 1;
-        }
-        println!("Scan Token");
-    }
-    //TODO : Just for testing and/or debugging
-    fn print_token(mut self) {
-        while !self.at_eof() {
-            let _vcur = self.c_list[self.current];
-            if !(_vcur == ' ') {
-                if _vcur == '\n' {
-                    self.line += 1;
-                    self.current += 1;
-                    continue;
-                }
-                match &_vcur {
-                    '=' => self.tok_list.push(new_token(
-                        String::from("EQ"),
-                        self.current as u32,
-                        self.line,
-                    )),
-                    ';' => self.tok_list.push(new_token(
-                        String::from("SQ"),
-                        self.current as u32,
-                        self.line,
-                    )),
-                    _ => self.tok_list.push(new_token(
-                        String::from(_vcur),
-                        self.current as u32,
-                        self.line,
-                    )),
-                }
-            }
-            self.current += 1;
-        }
-        println!("Length => {}", self.tok_list.len());
-        for item in &self.tok_list {
-            println!(
-                "[Token ~> {} ~> {} ~> {}]",
-                item.lexeme, item.pos, item.line
-            );
-        }
-    }
 }
 
 fn lex(c: String) {
@@ -122,13 +62,9 @@ fn lex(c: String) {
     // "[Token ~> {} ~> {} ~> {}]",
     // item.lexeme, item.pos, item.line
     // );
-    // }
-    let m_scanner: Scanner = Scanner {
-        c_list: c.chars().collect::<Vec<char>>(),
-        line: 1,
-        current: 0,
-        tok_list: Vec::new(),
-    };
+    // m_scanner.print_token();
+    //
+    let m_scanner: Scanner = Scanner::new(c.chars().collect::<Vec<char>>());
     m_scanner.print_token();
 }
 
