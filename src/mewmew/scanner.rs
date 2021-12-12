@@ -80,10 +80,6 @@ impl Scanner {
 
     /// Increment the `current` index
     /// and return the character at that index
-    pub fn c_advance(mut self) -> char {
-        self.current += 1;
-        return self.source_char_list[self.current];
-    }
 
     /// Check if `current` index is EOF or not
     pub fn at_eof(&self) -> bool {
@@ -94,22 +90,17 @@ impl Scanner {
     pub fn is_peek_eof(&self, offindex: usize) -> bool {
         return (self.current + offindex) >= self.source_char_list.len();
     }
-    ///TODO : Complete this function
-    ///Donot use the print_token
-    pub fn scan_token(mut self) {
-        while !self.at_eof() {
-            let _vcur = self.source_char_list[self.current];
-            if !(_vcur == ' ') {
-                if _vcur == '\n' {
-                    self.line += 1;
-                    self.current += 1;
-                    continue;
-                }
-            }
-            self.current += 1;
+
+    pub fn print_tokens(&self) {
+        println!("Length => {}", &self.token_list.len());
+        for item in &self.token_list {
+            println!(
+                "[{:?} ~> {} ~> {} ~> {}]",
+                item.t_type, item.lexeme, item.pos, item.line
+            );
         }
-        println!("Scan Token");
     }
+
 
     /// Returns the next character after `current`-th without consuming it.
     pub fn peek(&self) -> char {
@@ -187,11 +178,11 @@ impl Scanner {
                 if self.peek() == '=' {
                     has_two_char = true;
                     _type = TokenType::EQEQ;
-                    println!("+++ EQEQ");
+                    // println!("+++ EQEQ");
                     self.current += 1;
                 } else {
                     _type = TokenType::EQUAL;
-                    println!("+++ EQUAL");
+                    // println!("+++ EQUAL");
                 }
             }
             '~' => {
@@ -291,7 +282,7 @@ impl Scanner {
             }
         };
 
-        println!("{}", _char);
+        // println!("{}", _char);
         let _tok = new_token(_type, _char, self.current, self.line);
         self.token_list.push(_tok);
         // self.current += 1;
@@ -310,7 +301,7 @@ impl Scanner {
     }
 
     //TODO : Just for testing and/or debugging
-    pub fn print_token(mut self) {
+    pub fn scan_token(&mut self) {
         while !self.at_eof() {
             let _vcur = self.source_char_list[self.current];
             if !(_vcur == ' ') {
@@ -319,16 +310,6 @@ impl Scanner {
                     self.current += 1;
                     continue;
                 }
-
-                // if _vcur == '/' && self.peek() == '/'{
-                // while _vcur != '\n'{
-
-                // self.current+=1;
-
-                // }
-                // self.line+=1;
-                // continue;
-                // }
                 match &_vcur {
                     '+' | '-' | '*' | '~' | '&' | '|' | '%' | '>' | '<' | '!' | ';' | '=' | ':'
                     | '/' => self.scan_single_char_op(_vcur),
@@ -361,13 +342,6 @@ impl Scanner {
                 }
             }
             self.current += 1;
-        }
-        println!("Length => {}", self.token_list.len());
-        for item in &self.token_list {
-            println!(
-                "[{:?} ~> {} ~> {} ~> {}]",
-                item.t_type, item.lexeme, item.pos, item.line
-            );
         }
     }
 }
