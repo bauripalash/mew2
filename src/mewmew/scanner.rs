@@ -104,7 +104,6 @@ impl Scanner {
         }
     }
 
-
     /// Returns the next character after `current`-th without consuming it.
     pub fn peek(&self) -> char {
         if self.at_eof() {

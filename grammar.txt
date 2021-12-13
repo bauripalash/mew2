@@ -1,0 +1,67 @@
+GRAMMAR : MewMew
+==============
+
+Draft #1 >>> 2021-12-13T20:56:21+0530
+
+
+
+program -> stmts+
+        ;
+
+stmts -> assignment
+        | print
+        | scan
+        | if_loop
+        | loop
+        ;
+
+assignment -> ID '=' expr ';'
+            ;
+
+
+print -> print_expr
+        | print_char
+        ;
+
+print_expr -> '::' expr_list ';'
+            ;
+
+print_char -> ':::' expr_list ';'
+            ;
+
+scan -> '[]' ID ';'
+        ;
+
+if_loop -> expr '?' program ';'
+        | expr '?' program ':' program ';'
+        ;
+
+loop -> '@' expr ':' program ';'
+        ;
+
+expr_list -> expr (',' expr)+
+        ;
+
+expr -> '~' expr
+    | '-' expr 
+    | scratch '(' expr ')'
+    | expr '**' expr
+    | expr '/' expr
+    | expr '*' expr
+    | expr '-' expr
+    | expr '+' expr
+    | expr '%' expr
+    | expr '<<' expr
+    | expr '<' expr
+    | expr '>' expr
+    | expr '>>' expr 
+    | expr '<=' expr
+    | expr '>=' expr
+    | expr '==' expr
+    | expr '!=' expr
+    | expr '&' expr
+    | expr '|' expr
+    | '(' expr ')'
+    | MEWNUM
+    | ID
+    ;
