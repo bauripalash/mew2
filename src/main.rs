@@ -5,7 +5,7 @@ use std::{env, fs, os, process::exit};
 
 mod mewmew;
 
-fn lex(c: &String) {
+fn lex(c: &str) {
     let mut m_scanner: Scanner = Scanner::new(c.chars().collect::<Vec<char>>());
     m_scanner.scan_token();
     m_scanner.print_tokens();

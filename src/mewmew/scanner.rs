@@ -56,7 +56,7 @@ fn new_token(t_type: TokenType, lexeme: String, pos: usize, line: usize) -> Toke
         line,
     };
 
-    return _t;
+    _t 
 }
 
 pub struct Scanner {
@@ -71,14 +71,14 @@ pub struct Scanner {
 impl Scanner {
     /// Create a new Instance of Scanner
     pub fn new(source_char_list: Vec<char>) -> Scanner {
-        return Scanner {
+        Self {
             source_char_list,
             line: 1,
             current: 0,
             token_list: Vec::new(),
             mew_start: 0,
             id_start: 0,
-        };
+        } 
     }
 
     /// Increment the `current` index
@@ -86,12 +86,12 @@ impl Scanner {
 
     /// Check if `current` index is EOF or not
     pub fn at_eof(&self) -> bool {
-        return self.current >= self.source_char_list.len();
+        self.current >= self.source_char_list.len()
     }
 
     ///Check if `current` + offset is EOF
     pub fn is_peek_eof(&self, offindex: usize) -> bool {
-        return (self.current + offindex) >= self.source_char_list.len();
+         (self.current + offindex) >= self.source_char_list.len() 
     }
 
     pub fn print_tokens(&self) {
@@ -109,7 +109,7 @@ impl Scanner {
         if self.at_eof() {
             return '\0';
         }
-        return self.source_char_list[self.current + 1];
+        self.source_char_list[self.current + 1] 
     }
 
     /// Returns the `current` + peek_offset-th character without consuming it.
@@ -118,7 +118,7 @@ impl Scanner {
             return '\0';
         }
 
-        return self.source_char_list[self.current + peek_offset];
+        self.source_char_list[self.current + peek_offset]
     }
 
     pub fn scan_identifier(&mut self) {
@@ -128,7 +128,7 @@ impl Scanner {
         self.current += 1;
         self.token_list.push(new_token(
             TokenType::IDENTIFIER,
-            String::from_iter(self.source_char_list[self.id_start..self.current].into_iter()),
+            String::from_iter(self.source_char_list[self.id_start..self.current].iter()),
             self.current,
             self.line,
         ));
@@ -150,7 +150,7 @@ impl Scanner {
         //self.current += 1;
         self.token_list.push(new_token(
             TokenType::MEWNUM,
-            String::from_iter(self.source_char_list[self.mew_start..=self.current].into_iter()),
+            String::from_iter(self.source_char_list[self.mew_start..=self.current].iter()),
             self.current,
             self.line,
         ));
@@ -164,7 +164,7 @@ impl Scanner {
 
         let _tok = new_token(
             TokenType::SCRATCH,
-            String::from_iter(self.source_char_list[_cindex..=self.current].into_iter()),
+            String::from_iter(self.source_char_list[_cindex..=self.current].iter()),
             self.current,
             self.line,
         );
@@ -309,7 +309,7 @@ impl Scanner {
     pub fn scan_token(&mut self) {
         while !self.at_eof() {
             let _vcur = self.source_char_list[self.current];
-            if !(_vcur == ' ') {
+            if _vcur != ' ' {
                 if _vcur == '\n' {
                     self.line += 1;
                     self.current += 1;
