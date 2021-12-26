@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 #![allow(unused_imports)]
 use crate::mewmew::scanner::*;
+use crate::mewmew::parser::*;
 use std::{env, fs, os, process::exit};
 
 mod mewmew;
@@ -8,7 +9,12 @@ mod mewmew;
 fn lex(c: &str) {
     let mut m_scanner: Scanner = Scanner::new(c.chars().collect::<Vec<char>>());
     m_scanner.scan_token();
-    m_scanner.print_tokens();
+    //m_scanner.print_tokens();
+    for item in m_scanner.get_token_list(){
+        
+        println!("{:}" , item);
+
+    }
 }
 
 fn main() {

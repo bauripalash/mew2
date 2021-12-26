@@ -1,5 +1,5 @@
-use std::process::exit;
-
+use std::{process::exit, iter::Peekable};
+use std::fmt;
 /// Scanner Object
 /// * source_char_list -> Vector list of each Characters in Source File/String
 /// * Line -> Current line being read
@@ -39,6 +39,16 @@ pub enum TokenType {
     RBRAC,      // )
 
     OTHER,
+}
+
+impl fmt::Display for Token{
+    fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result{
+        
+        write!(f , "T[{:?} ~> {} <{},{}>]" , self.t_type , self.lexeme , self.line , self.pos)
+
+    }
+
+
 }
 
 pub struct Token {
@@ -88,7 +98,10 @@ impl Scanner {
     pub fn at_eof(&self) -> bool {
         self.current >= self.source_char_list.len()
     }
-
+    
+    pub fn get_token_list(self) -> Vec<Token>{
+        self.token_list
+    }
     ///Check if `current` + offset is EOF
     pub fn is_peek_eof(&self, offindex: usize) -> bool {
          (self.current + offindex) >= self.source_char_list.len() 
