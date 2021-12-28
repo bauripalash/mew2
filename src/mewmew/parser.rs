@@ -24,4 +24,29 @@ impl Parser{
 
     }
 
+    pub fn at_eof(&self) -> bool{
+        
+        self.tokens.len() <= self.current
+
+    }
+
+    pub fn at_peek_eof(&self , x : usize) -> bool{
+        
+        self.tokens.len() <= x
+
+    }
+
+    pub fn peek(&self) -> &Token{
+        
+        &self.tokens[self.current + 1]  
+
+    }
+
+    pub fn backpeek(&self) -> &Token{
+        
+        &self.tokens[self.current - 1]
+
+    }
+
+
 }

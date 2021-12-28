@@ -37,6 +37,7 @@ pub enum TokenType {
     COMMA,      // ,
     LBRAC,      // (
     RBRAC,      // )
+    EOF,
 
     OTHER,
 }
