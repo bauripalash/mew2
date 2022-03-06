@@ -1,6 +1,6 @@
 use crate::mewmew::scanner::Token;
 
-
+#[derive(Debug)]
 pub enum Stmt{
     
     Asignment( Token , Box<Expr> ),     // Token[ID] = Expr
@@ -13,6 +13,7 @@ pub enum Stmt{
 
 }
 
+#[derive(Debug)]
 pub enum Expr{
     
     Abs(Box<Expr>),

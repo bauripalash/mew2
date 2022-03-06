@@ -6,7 +6,7 @@ use std::fmt;
 /// * current -> Current index of the Character being processed
 /// * token_list -> Vector List of Already processed tokens
 
-#[derive(Debug)]
+#[derive(Debug , PartialEq , Clone, Copy)]
 pub enum TokenType {
     EQUAL,      // =
     SEMICOLON,  // ;
@@ -52,14 +52,16 @@ impl fmt::Display for Token{
 
 }
 
+
+#[derive(Debug , Clone)]
 pub struct Token {
-    t_type: TokenType,
-    lexeme: String,
-    pos: usize,
-    line: usize,
+    pub t_type: TokenType,
+    pub lexeme: String,
+    pub pos: usize,
+    pub line: usize,
 }
 
-fn new_token(t_type: TokenType, lexeme: String, pos: usize, line: usize) -> Token {
+pub fn new_token(t_type: TokenType, lexeme: String, pos: usize, line: usize) -> Token {
     let _t: Token = Token {
         t_type,
         lexeme,
