@@ -364,5 +364,6 @@ impl Scanner {
             }
             self.current += 1;
         }
+            self.token_list.push(new_token(TokenType::EOF, String::new(), self.current, self.line))
     }
 }

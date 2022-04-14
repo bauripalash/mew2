@@ -9,7 +9,7 @@ mod mewmew;
 fn lex(c: &str) {
     let mut m_scanner: Scanner = Scanner::new(c.chars().collect::<Vec<char>>());
     m_scanner.scan_token();
-    //m_scanner.print_tokens();
+    m_scanner.print_tokens();
     //for item in m_scanner.get_token_list(){
         
     //    println!("{:}" , item);
@@ -18,7 +18,7 @@ fn lex(c: &str) {
     let tok_list = m_scanner.get_token_list();
 
     let mut parser = Parser::new(tok_list);
-    parser.scan();
+    parser.parse();
 }
 
 fn main() {
